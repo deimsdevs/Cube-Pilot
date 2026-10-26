@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>CubePilot 3D</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/src/styles/main.css" />
+</head>
+<body data-view="home">
+  <header class="top">
+    <strong class="brand">CubePilot 3D</strong>
+    <button id="menuBtn" class="icon-btn" aria-label="Menu" aria-expanded="false" aria-controls="nav"></button>
+    <nav id="nav" aria-label="Main"></nav>
+    <button id="themeBtn" class="icon-btn" aria-label="Toggle light and dark theme"></button>
+    <button id="newBtn">Start new cube</button>
+  </header>
+  <div class="layout">
+    <aside id="left" class="panel" aria-label="Color palette"><h2>Colors</h2><div id="palette"></div></aside>
+    <main id="stage" aria-label="Interactive 3D cube"></main>
+    <aside id="right" class="panel">
+      <section id="view-home" class="view">
+        <h2>Your Cube. Your Moves. Your Solution.</h2>
+        <p>Copy the colors of your real Rubik's Cube into the virtual one, and CubePilot 3D will check it and, in the next stage, solve it step by step.</p>
+        <p>Drag the cube to look around. Click a face to select it.</p>
+        <button data-go="editor" class="primary">Enter My Cube</button>
+      </section>
+      <section id="view-editor" class="view" hidden><div id="editorPanel"></div></section>
+      <section id="view-solve" class="view" hidden>
+        <h2>Solve</h2><div id="solveInfo" aria-live="polite"></div>
+        <p class="hint">This solves the cube entered in the Cube Editor. To solve the cube you scrambled in Practice, use Practice, then Solve this cube.</p>
+        <button id="solveNow" class="primary">Solve my cube</button>
+        <div id="playback" hidden></div>
+      </section>
+      <section id="view-practice" class="view" hidden><div id="practicePanel"></div><div id="practicePlayback" hidden></div></section>
+      <section id="view-learn" class="view" hidden>
+        <h2>Learn</h2>
+        <h3>The pieces</h3><p>A cube has 6 centers (they never move and define each face's color), 12 edges (2 colors each) and 8 corners (3 colors each).</p>
+        <h3>Holding the cube</h3><p>Hold it with the white center on top and the green center facing you. The red center is then on your right.</p>
+        <h3>Notation</h3><p>R, L, U, D, F, B are the Right, Left, Up, Down, Front and Back faces. A letter alone means a quarter turn clockwise, looking straight at that face. R' (prime) is a quarter turn counterclockwise. R2 is a half turn.</p>
+        <h3>Common mistakes</h3>
+        <ul><li>Turning counterclockwise when the move says clockwise. Always look straight at the face being turned.</li><li>Holding the cube differently from the screen. Match the white-top, green-front view first.</li><li>Entering the Down or Back face upside down.</li><li>Making one wrong turn and carrying on. Stop, re-enter your cube, and solve again.</li></ul>
+        <p class="hint">A step-by-step beginner layer-by-layer course is not part of this version. Use Solve for a complete solution.</p>
+      </section>
+      <section id="view-settings" class="view" hidden>
+        <h2>Settings</h2>
+        <div class="tools">
+          <button id="themeBtn2">Switch theme</button>
+          <button id="exportBtn">Export cube (JSON)</button>
+          <label class="filebtn">Import cube (JSON)<input id="importFile" type="file" accept="application/json,.json" hidden /></label>
+        </div>
+        <p id="settingsMsg" role="status"></p>
+      </section>
+      <section id="view-help" class="view" hidden>
+        <h2>Help</h2>
+        <p><b>Orientation:</b> white center on top, green center facing you, red center on your right. Each face is read looking straight at it. The Up face has the Back edge at the top, the Down face has the Front edge at the top, and the side faces have the Up face at the top.</p>
+        <p><b>Notation:</b> R, L, U, D, F, B turn that face clockwise as you look straight at it. A prime (R') means counterclockwise. A 2 (R2) means a half turn.</p>
+        <p><b>Controls:</b> drag to orbit, scroll or pinch to zoom, double-click the cube to reset the view.</p>
+      </section>
+    </aside>
+  </div>
+  <p id="status" role="status" aria-live="polite"></p>
+  <button id="solveBtn" class="solve primary">Solve cube</button>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

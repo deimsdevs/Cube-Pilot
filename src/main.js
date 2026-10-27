@@ -50,6 +50,7 @@ const editor = createFaceEditor({
   palette: $('palette'), panel: $('editorPanel'),
   initialState: saved ? saved.stickers : createEditorState(),
   initialFace: saved ? saved.face : 'U',
+  onSolve: () => doSolve(),
   onChange: (state) => {
     if (solutionFor && JSON.stringify(state) !== solutionFor) { solutionFor = null; solution = null; curIndex = 0; if (playback) playback.clear(); }
     syncCube(); persist(); updateSolve();

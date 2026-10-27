@@ -12,7 +12,7 @@ export const cubeTextOf = (s) => FACES.map((f, i) => s.slice(i * 9, i * 9 + 9).m
 const cap = (s) => s[0].toUpperCase() + s.slice(1);
 const faceRange = (f) => { const o = FACES.indexOf(f) * 9; return Array.from({ length: 9 }, (_, i) => o + i); };
 
-export function createFaceEditor({ palette, panel, initialState, initialFace = 'U', onChange }) {
+export function createFaceEditor({ palette, panel, initialState, initialFace = 'U', onChange, onSolve }) {
   const history = createHistory(initialState);
   let face = initialFace, color = 'R', cell = null;
 
@@ -62,6 +62,7 @@ export function createFaceEditor({ palette, panel, initialState, initialFace = '
         <button data-act="prev">${icon('prev')} Previous face</button>
         <button data-act="next">Next face ${icon('next')}</button>
         <button data-act="sample">Load sample cube</button>
+        <button data-act="solve" class="primary">Solve this cube</button>
       </div>
       <div class="validation" aria-live="polite">${msgs}</div>`;
   }
@@ -80,6 +81,7 @@ export function createFaceEditor({ palette, panel, initialState, initialFace = '
       if (a === 'undo') { history.undo(); changed(); }
       else if (a === 'redo') { history.redo(); changed(); }
       else if (a === 'clear') { let s = state(); faceRange(face).forEach((i) => { if (!isCenterIndex(i)) s = updateSticker(s, i, null); }); history.push(s); cell = null; changed(); }
+      else if (a === 'solve') { if (onSolve) onSolve(); }
       else if (a === 'sample') { history.push(applyMoveSequence(createSolvedColorCube(), SAMPLE_SCRAMBLE)); cell = null; changed(); }
       else if (a === 'prev') selectFace(FACES[(k + 5) % 6]);
       else if (a === 'next') selectFace(FACES[(k + 1) % 6]);
